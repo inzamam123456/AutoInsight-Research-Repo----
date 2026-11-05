@@ -9,5 +9,6 @@ Research documentation and dataset evaluation resources for **AutoInsight: An Au
 - [Proposed system architecture](SYSTEM_ARCHITECTURE.md)
 - [Literature review tracker](LITERATURE_REVIEW_TRACKER.md)
 - [Progress log](PROGRESS_LOG.md)
+- [Protype Demo 1]
 
-This repository is for research and academic documentation. Proposed features are not represented as implemented or experimentally validated unless explicitly documented.
+This repository is for research and academic documentation. Proposed features are not represented as implemented or experimentally validated unless explicitly documented
