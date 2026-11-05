@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --navy-deep: #070D1E;
+    --navy-surface: #0B132B;
+    --navy-card: #111C3D;
+    --electric-blue: #2563EB;
+    --electric-cyan: #00D2FF;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #0F172A;
+    background-color: #F8FAFC;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  .dark body {
+    background-color: #070D1E;
+    color: #F1F5F9;
+    background-image: 
+      radial-gradient(rgba(37, 99, 235, 0.12) 1px, transparent 1px),
+      radial-gradient(rgba(0, 210, 255, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px, 64px 64px;
+    background-position: 0 0, 16px 16px;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1E293B;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3B82F6;
+}
+
+/* Glassmorphism & Executive Accents */
+.electric-glow {
+  box-shadow: 0 0 20px -3px rgba(37, 99, 235, 0.35);
+}
+
+.navy-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.dark .navy-card {
+  background: #0B132B;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+

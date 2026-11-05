@@ -1,0 +1,6 @@
+{
+  "name": "AutoInsight",
+  "description": "AI-Powered Automated Data Cleaning, Dashboard Generation, and Verifiable Data Analysis Platform",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

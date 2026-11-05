@@ -1,0 +1,109 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // User Profile Validation
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['uid', 'email', 'createdAt']) &&
+        data.keys().hasOnly(['uid', 'email', 'displayName', 'role', 'createdAt', 'lastLoginAt']) &&
+        data.uid is string && data.uid.size() <= 128 &&
+        data.email is string && data.email.size() <= 256 &&
+        (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 128)) &&
+        (!('role' in data) || data.role in ['user', 'admin']) &&
+        data.createdAt is string && data.createdAt.size() <= 64;
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow create: if isOwner(userId) &&
+        isValidId(userId) &&
+        request.resource.data.uid == userId &&
+        isValidUserProfile(request.resource.data);
+      allow update: if isOwner(userId) &&
+        isValidId(userId) &&
+        request.resource.data.uid == userId &&
+        isValidUserProfile(request.resource.data) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'lastLoginAt', 'role']);
+      allow delete: if false;
+    }
+
+    // Analysis History Validation
+    function isValidAnalysisHistory(data) {
+      return data.keys().hasAll(['id', 'userId', 'datasetName', 'createdAt']) &&
+        data.keys().hasOnly(['id', 'userId', 'datasetId', 'datasetName', 'queryPrompt', 'insightsCount', 'qualityScore', 'status', 'createdAt', 'summary']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.userId is string && data.userId.size() <= 128 &&
+        data.datasetName is string && data.datasetName.size() <= 256 &&
+        (!('datasetId' in data) || (data.datasetId is string && data.datasetId.size() <= 128)) &&
+        (!('queryPrompt' in data) || (data.queryPrompt is string && data.queryPrompt.size() <= 1000)) &&
+        (!('insightsCount' in data) || data.insightsCount is number) &&
+        (!('qualityScore' in data) || data.qualityScore is number) &&
+        (!('status' in data) || data.status in ['completed', 'in_progress', 'failed']) &&
+        data.createdAt is string && data.createdAt.size() <= 64 &&
+        (!('summary' in data) || (data.summary is string && data.summary.size() <= 2000));
+    }
+
+    match /analysisHistory/{historyId} {
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() &&
+        isValidId(historyId) &&
+        request.resource.data.userId == request.auth.uid &&
+        isValidAnalysisHistory(request.resource.data);
+      allow update: if isSignedIn() &&
+        isValidId(historyId) &&
+        resource.data.userId == request.auth.uid &&
+        request.resource.data.userId == request.auth.uid &&
+        isValidAnalysisHistory(request.resource.data) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'summary', 'insightsCount', 'qualityScore']);
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // Saved Dashboard Validation
+    function isValidSavedDashboard(data) {
+      return data.keys().hasAll(['id', 'userId', 'title', 'createdAt']) &&
+        data.keys().hasOnly(['id', 'userId', 'datasetId', 'title', 'chartCount', 'createdAt', 'updatedAt']) &&
+        data.id is string && data.id.size() <= 128 &&
+        data.userId is string && data.userId.size() <= 128 &&
+        data.title is string && data.title.size() <= 256 &&
+        (!('datasetId' in data) || (data.datasetId is string && data.datasetId.size() <= 128)) &&
+        (!('chartCount' in data) || data.chartCount is number) &&
+        data.createdAt is string && data.createdAt.size() <= 64 &&
+        (!('updatedAt' in data) || (data.updatedAt is string && data.updatedAt.size() <= 64));
+    }
+
+    match /savedDashboards/{dashboardId} {
+      allow get: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() &&
+        isValidId(dashboardId) &&
+        request.resource.data.userId == request.auth.uid &&
+        isValidSavedDashboard(request.resource.data);
+      allow update: if isSignedIn() &&
+        isValidId(dashboardId) &&
+        resource.data.userId == request.auth.uid &&
+        request.resource.data.userId == request.auth.uid &&
+        isValidSavedDashboard(request.resource.data) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['title', 'chartCount', 'updatedAt']);
+      allow delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

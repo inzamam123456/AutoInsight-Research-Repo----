@@ -1,0 +1,1140 @@
+MASTER PROJECT PROMPT: AutoInsight
+
+AI-Powered Automated Data Cleaning, Dashboard Generation, and Verifiable Data Analysis Platform
+
+1. Project Overview
+
+Build a complete, professional, full-stack web application named AutoInsight (one word).
+
+AutoInsight is an AI-powered data analytics platform that allows users, especially non-technical users, to upload raw datasets, automatically clean and validate them, generate interactive dashboards, ask questions in natural language, and receive evidence-backed answers based on their actual data.
+
+The goal is to make data analysis accessible to anyone without requiring knowledge of Python, SQL, statistics, or data visualization.
+
+The application must be a real, functional software product, not merely a static UI prototype. All major buttons, forms, charts, database operations, authentication flows, and analysis workflows must work.
+
+Build the complete application in six integrated phases:
+
+1. Website foundation and dataset upload.
+2. Automated data cleaning and validation.
+3. Automatic interactive dashboard generation.
+4. LLM-powered data analyst.
+5. Evidence-backed answer verification.
+6. Complete integration, monitoring, testing, and deployment readiness.
+
+Do not omit any of these phases.
+
+---
+
+2. Product Identity and Branding
+
+Product name: AutoInsight
+
+Tagline: From Raw Data to Reliable Insights.
+
+Brand personality: Intelligent, trustworthy, modern, professional, transparent, accessible, and easy to understand.
+
+Create a distinctive logo combining a data/chart symbol with a subtle AI or insight motif. Use a clean, recognizable icon and the word AutoInsight in the application header.
+
+Design a consistent visual identity throughout the application.
+
+Color system
+
+Use a restrained professional palette:
+
+- Primary: Deep navy blue (#172554).
+- Secondary: Blue (#2563EB).
+- Accent: Teal (#0D9488).
+- Main light background: Off-white (#F8FAFC).
+- Surface/cards: White (#FFFFFF).
+- Main text: Dark slate (#0F172A).
+- Secondary text: Slate gray (#64748B).
+- Borders: Light gray (#E2E8F0).
+- Success: Green.
+- Warning: Amber.
+- Error: Red.
+- Information: Blue.
+
+Use colors semantically. Success, warning, and error colors should communicate real system states, not merely decorate the interface.
+
+Visual design requirements
+
+- Professional SaaS dashboard aesthetic.
+- Consistent spacing, typography, borders, and corner radii.
+- Clean layouts with generous whitespace.
+- Lucide icons or a consistent equivalent icon set.
+- Subtle shadows and restrained animations.
+- Clear visual hierarchy and readable labels.
+- Responsive layouts for desktop, tablet, and mobile.
+- Avoid excessive gradients, glowing effects, oversized headings, and unnecessary animations.
+- Avoid clutter, overly technical terminology, and excessive decorative cards.
+- Use tooltips and short explanations for unfamiliar concepts.
+- Make every screen visually consistent with the AutoInsight brand.
+
+The finished website should resemble a polished enterprise analytics product rather than a generic AI-generated template.
+
+---
+
+3. Technology Stack
+
+Use the following architecture unless the development environment imposes a genuine limitation.
+
+Frontend
+
+- React.
+- TypeScript.
+- Vite or an equivalent supported build system.
+- Tailwind CSS.
+- A consistent accessible component library.
+- Lucide icons.
+- Apache ECharts or Plotly for interactive visualizations.
+- A reliable frontend routing solution.
+- A server-state and API data-fetching library.
+
+Backend
+
+- Python.
+- FastAPI.
+- Pydantic for request and response validation.
+- Pandas and NumPy for data processing.
+- Pandera or equivalent schema and data-quality validation.
+- Scikit-learn for appropriate statistical and anomaly-detection tasks.
+- SQLAlchemy and database migrations.
+
+Database and storage
+
+- PostgreSQL for production-oriented relational storage.
+- SQLite as an optional local development fallback.
+- Supabase may be used for managed PostgreSQL, authentication, and file storage if properly configured.
+- Object storage or a private storage service for uploaded files and generated artifacts.
+
+Store metadata, user preferences, dataset history, cleaning reports, dashboard configurations, analysis records, and verification evidence in the database.
+
+Store large datasets and files in suitable file or object storage rather than placing entire files inside ordinary database records.
+
+AI and LLM
+
+- A configurable LLM provider interface.
+- Support an external model API or a compatible open-weight model.
+- Hugging Face Transformers may be used for self-hosted models.
+- Use structured outputs and schema validation.
+- The application must continue to support ordinary data processing when the LLM provider is unavailable.
+
+Never hardcode API keys. Use environment variables and server-side secrets.
+
+Background processing and monitoring
+
+- Use a background job system for expensive dataset processing.
+- Redis and Celery, or an equivalent queue, may be used when required.
+- Use Server-Sent Events (SSE) or WebSockets for live processing logs.
+- Use structured backend logging and persistent job states.
+
+---
+
+4. Application Layout and Navigation
+
+Create a polished application shell with a collapsible left sidebar, a clean top navigation bar, and a main content area.
+
+Left sidebar
+
+Include the following navigation items:
+
+1. Overview.
+2. New Analysis.
+3. My Datasets.
+4. Dashboards.
+5. AI Analyst.
+6. Processing History.
+7. Saved Reports.
+8. Help and Documentation.
+9. Settings.
+10. User Profile.
+
+Show the AutoInsight logo and name at the top.
+
+Provide a clearly visible button labeled “+ New Analysis”.
+
+At the bottom, show the current user's profile picture or initials, display name, account menu, and logout option.
+
+Allow the sidebar to collapse to icon-only mode. Provide tooltips when collapsed.
+
+Top navigation bar
+
+Include:
+
+- Current page title or breadcrumb.
+- Search across the user's own datasets and saved analyses.
+- Notifications or processing-status indicator.
+- Theme toggle.
+- User profile menu.
+
+Show loading states and relevant contextual actions without overcrowding the header.
+
+---
+
+5. User Authentication and Account Management
+
+Implement genuine authentication and authorization.
+
+Authentication screens
+
+- Sign up.
+- Log in.
+- Log out.
+- Email verification when supported.
+- Forgot password.
+- Password reset.
+- Session persistence.
+- Session expiration and secure logout.
+
+Support email/password authentication. OAuth sign-in may be added if credentials are configured.
+
+User profile
+
+Allow users to:
+
+- Change display name.
+- Change profile picture.
+- View account email.
+- Change password through a secure flow.
+- Update profile details.
+- View account creation date.
+- Manage account preferences.
+- Request account deletion.
+
+Security requirements
+
+- Hash passwords securely if authentication is implemented locally.
+- Prefer a properly configured authentication provider where appropriate.
+- Enforce authorization on the backend for every private dataset, report, file, and analysis.
+- Users must never access another user's private information by changing a URL or dataset ID.
+- Protect against unauthorized file access and insecure direct object references.
+- Use secure session handling, CSRF protection where applicable, rate limits, and input validation.
+- Do not expose secret keys, internal server errors, or sensitive stack traces to the browser.
+
+A decorative login screen without real authentication is not acceptable.
+
+---
+
+6. Settings and Personalization
+
+Create a complete settings section with separate categories.
+
+Appearance
+
+Provide:
+
+- Light theme.
+- Dark theme.
+- System-default theme.
+- Multiple professional accent-color options.
+- Compact and comfortable density modes.
+- Sidebar collapse preference.
+- Chart appearance preferences.
+- Accessible contrast options.
+
+The selected theme and preferences must persist across sessions.
+
+Use design tokens so colors, backgrounds, borders, and text automatically adapt to the selected theme.
+
+Display and accessibility
+
+Include:
+
+- Font-size adjustment.
+- Readable typography.
+- High-contrast option.
+- Reduced-motion support.
+- Keyboard navigation.
+- Visible focus indicators.
+- Screen-reader-friendly labels.
+- Accessible chart descriptions.
+- Tooltips for technical terms.
+
+Do not implement an arbitrary brightness slider that changes only some elements. If brightness adjustment is offered, apply a coherent and consistent visual treatment across the interface.
+
+Data and privacy settings
+
+Include:
+
+- Default file-processing preferences.
+- Default date and number formats.
+- Data retention options where supported.
+- Download personal data.
+- Delete saved analyses.
+- Delete datasets and associated artifacts.
+- Account deletion.
+- Privacy and security information.
+
+Clearly explain what data is stored, what is sent to an external LLM provider, and how users can delete their stored data.
+
+---
+
+7. Phase One: Dataset Upload and Website Foundation
+
+Create a complete dataset-upload workflow.
+
+Upload interface
+
+Provide a prominent drag-and-drop upload zone.
+
+Allow users to browse for files and upload supported formats, initially:
+
+- CSV.
+- XLSX.
+- XLS, where supported safely.
+
+Optionally support JSON and Parquet after the core workflow is stable.
+
+Include:
+
+- File size and format validation.
+- Upload progress.
+- Clear error messages.
+- Retry functionality.
+- Duplicate upload warnings where appropriate.
+- Upload cancellation where feasible.
+- File replacement and deletion.
+- Dataset name and optional description.
+
+Do not accept arbitrary executable files or treat uploaded content as trusted code.
+
+Dataset preview
+
+After upload, display:
+
+- Dataset name.
+- File format.
+- Number of rows and columns.
+- Column names.
+- Detected data types.
+- A preview of sample rows.
+- Missing-value counts.
+- Duplicate-row counts.
+- Basic numeric statistics.
+- Date ranges where applicable.
+- Initial data-quality indicators.
+
+Provide a friendly explanation of each data-quality issue.
+
+For example, display “Some values are missing in the Age column” instead of only “NaN detected”.
+
+Dataset storage
+
+Generate a unique dataset ID and associate it with the authenticated user.
+
+Preserve the original file as an immutable source. All cleaned versions must be separate, traceable artifacts.
+
+---
+
+8. Phase Two: Automated Data Cleaning and Validation
+
+Build a reusable data-processing engine that can clean different datasets without requiring users to write code.
+
+The system must profile the dataset before deciding which cleaning actions are appropriate.
+
+Data profiling
+
+Detect:
+
+- Missing values.
+- Duplicate rows.
+- Duplicate column names.
+- Incorrect data types.
+- Inconsistent date formats.
+- Inconsistent categorical values.
+- Leading and trailing whitespace.
+- Numeric values stored as text.
+- Invalid values and impossible ranges.
+- Constant or near-constant columns.
+- Potential outliers.
+- Empty columns.
+- Suspicious identifiers.
+- Mixed formats.
+- Potentially misleading values.
+
+Do not assume that every unusual value is an error.
+
+Cleaning operations
+
+Implement appropriate operations for:
+
+- Removing or resolving duplicates.
+- Standardizing whitespace and text formatting.
+- Converting data types.
+- Parsing dates.
+- Normalizing categorical labels when justified.
+- Handling missing values through appropriate imputation or explicit preservation.
+- Detecting outliers using suitable statistical methods.
+- Applying domain constraints when known.
+- Identifying columns that may be irrelevant.
+- Handling malformed records.
+
+Do not automatically delete valuable data merely because it looks unusual.
+
+Do not impute every missing value with zero. Choose a strategy based on the data type, distribution, business meaning, and missingness pattern.
+
+When the correct action cannot be inferred confidently, explain the uncertainty and request user confirmation or preserve the value.
+
+Cleaning engine and AI agent responsibilities
+
+Use Python for deterministic transformations.
+
+An optional Data Cleaning Agent may:
+
+- Interpret ambiguous column names.
+- Recommend cleaning strategies.
+- Explain the consequences of a transformation.
+- Suggest validation rules.
+- Generate structured cleaning plans.
+
+The LLM must not execute arbitrary generated Python or SQL.
+
+Require the LLM to return a validated structured plan containing:
+
+- Target column.
+- Issue type.
+- Recommended operation.
+- Reason.
+- Expected effect.
+- Confidence or uncertainty.
+- Whether approval is required.
+
+Validate the plan against an allowlist of supported operations before execution.
+
+Cleaning history and reversibility
+
+Record every transformation, including:
+
+- Action ID.
+- Dataset ID and version.
+- Timestamp.
+- Column or rows affected.
+- Operation performed.
+- Number of values or rows affected.
+- Before-and-after counts where meaningful.
+- Reason for the action.
+- Validation outcome.
+- Whether the operation was automatic or user-approved.
+
+Keep the original dataset unchanged. Provide a way to review transformations and restore an earlier dataset version.
+
+Before-and-after report
+
+Show:
+
+- Original row and column counts.
+- Final row and column counts.
+- Missing values before and after.
+- Duplicate rows before and after.
+- Type conversion counts.
+- Invalid values resolved.
+- Rows removed and why.
+- Remaining issues.
+- Warnings and unresolved uncertainties.
+
+Only report metrics that were actually calculated.
+
+---
+
+9. Phase Three: Automatic Dashboard Generation
+
+Automatically generate an interactive dashboard from the validated dataset.
+
+Users should not need to manually choose every chart.
+
+Dashboard content
+
+Generate suitable elements such as:
+
+- KPI cards.
+- Bar charts.
+- Line charts.
+- Histograms.
+- Scatter plots.
+- Box plots.
+- Pie or donut charts when appropriate.
+- Tables.
+- Correlation views.
+- Time-series views.
+- Distribution summaries.
+- Category comparisons.
+
+Do not generate every chart type for every dataset.
+
+Select visualizations based on data types, cardinality, time dimensions, relationships, and analytical usefulness.
+
+Automatic KPI generation
+
+Generate relevant descriptive KPIs based on the dataset.
+
+Examples include:
+
+- Total sales.
+- Average order value.
+- Number of records.
+- Unique customers.
+- Minimum and maximum.
+- Growth over time when appropriate.
+- Missing-value percentage.
+- Category distribution.
+
+Do not invent business metrics that cannot be derived from the dataset.
+
+For metrics that require assumptions, display their definitions.
+
+Dashboard interaction
+
+Provide:
+
+- Date-range filters.
+- Category filters.
+- Searchable tables.
+- Sorting.
+- Drill-down into relevant records.
+- Cross-filtering where practical.
+- Chart tooltips.
+- Expandable charts.
+- Refresh and reset filters.
+- Download chart data.
+- Export dashboard reports to PDF or CSV where supported.
+
+All charts must use actual validated data.
+
+Dashboard explanations
+
+Allow users to select a chart and ask:
+
+- What does this chart show?
+- Why is this value high?
+- Which category contributes the most?
+- What changed over time?
+- What should I investigate next?
+
+The AI must use the selected chart's underlying metric definition and data, not merely infer information from the chart's appearance.
+
+Save dashboard configurations so users can reopen them later.
+
+---
+
+10. Phase Four: LLM-Powered AI Analyst
+
+Build an AI chat interface inside AutoInsight.
+
+The analyst must understand natural-language questions about the currently selected dataset and dashboard.
+
+Example questions
+
+- What are the main findings in this dataset?
+- Which product generated the highest revenue?
+- Which month had the lowest sales?
+- Are there unusual values?
+- What is the average order value?
+- Which category contributes the most?
+- What trends are visible over time?
+- Compare the performance of two regions.
+- Explain this chart in simple terms.
+- What additional analyses would be useful?
+- Why did revenue decline during a particular period?
+- What limitations should I consider?
+
+Analyst workflow
+
+1. Receive the user's question.
+2. Identify the relevant dataset and dataset version.
+3. Determine which columns, filters, and metrics are required.
+4. Ask clarifying questions if the request is ambiguous.
+5. Generate a structured analysis plan.
+6. Execute approved analytical operations using controlled tools.
+7. Obtain actual calculation results.
+8. Validate the results.
+9. Generate a clear explanation based on the returned evidence.
+10. Display the answer with supporting calculations and source references.
+
+Approved analytical tools
+
+Provide controlled tools for:
+
+- Dataset schema lookup.
+- Column statistics.
+- Group-by aggregation.
+- Filtering.
+- Sorting.
+- Correlation analysis.
+- Trend analysis.
+- Anomaly investigation.
+- Dashboard metric lookup.
+- Read-only SQL queries where appropriate.
+- Safe Pandas operations.
+- Result verification.
+
+Use strict input schemas and enforce row, execution-time, and memory limits.
+
+Do not allow the model to execute unrestricted shell commands, arbitrary Python, arbitrary SQL mutations, or filesystem operations.
+
+Chat interface design
+
+Include:
+
+- Conversation history.
+- Suggested questions.
+- Streaming responses when supported.
+- Clear loading states.
+- Stop-generation functionality.
+- Copy-answer functionality.
+- Follow-up questions.
+- Dataset selection.
+- Selected-chart context.
+- Evidence expansion.
+- Error and retry states.
+
+The AI should explain technical results in plain language for non-technical users.
+
+If the dataset cannot answer a question, the analyst must say so instead of fabricating an answer.
+
+---
+
+11. Phase Five: Evidence and Answer Verification
+
+Implement answer verification as a first-class system component.
+
+The purpose is to make AutoInsight's answers traceable, reproducible, and appropriately cautious.
+
+Verification process
+
+For each analytical answer:
+
+1. Identify the claim being made.
+2. Identify the dataset version used.
+3. Record the executed calculation or query.
+4. Verify that the calculation completed successfully.
+5. Check that the relevant columns and filters were used correctly.
+6. Compare the result against the underlying calculation output.
+7. Confirm that the response does not introduce unsupported numbers.
+8. Attach evidence to the answer.
+9. Identify limitations and unresolved uncertainty.
+10. Present the result to the user.
+
+Evidence panel
+
+Each analytical response should be able to show:
+
+- Answer.
+- Relevant dataset name and version.
+- Source column names.
+- Metric definition.
+- Filters applied.
+- Calculation or read-only query.
+- Number of records included.
+- Relevant chart.
+- Supporting record IDs or row references when appropriate.
+- Validation status.
+- Known limitations.
+
+Do not expose private data from unrelated records or other users.
+
+Verification status
+
+Use clearly defined statuses:
+
+- Verified calculation: The calculation was executed and its result passed defined checks.
+- Partially verified: Some parts of the answer are supported, but others remain uncertain.
+- Unverified explanation: The statement is interpretive or could not be fully confirmed from the data.
+- Verification failed: The calculation or evidence checks failed.
+
+Never display a green verification status merely because an LLM says its own answer is correct.
+
+Reproducibility
+
+Store enough metadata to reproduce analytical results, including:
+
+- Dataset version.
+- Analysis ID.
+- Query or calculation specification.
+- Filter parameters.
+- Metric definitions.
+- Execution timestamp.
+- Result metadata.
+- Verification checks and their outcomes.
+
+For numerical questions, use deterministic computation as the source of truth.
+
+For causal questions such as “Why did sales decline?”, distinguish observed correlations and trends from demonstrated causes. Do not present correlation as causation.
+
+---
+
+12. Phase Six: Integration, Logs, and Performance Monitoring
+
+Connect all modules through a central workflow orchestrator.
+
+The orchestrator should control the order of operations, handle failures, persist job status, and make each stage observable.
+
+Workflow states
+
+Support states such as:
+
+- Uploaded.
+- Profiling.
+- Cleaning.
+- Validating.
+- Dashboard generation.
+- Ready for analysis.
+- Completed with warnings.
+- Failed.
+- Cancelled.
+
+Persist the current state so that a page refresh does not erase processing history.
+
+Live processing sidebar
+
+Show:
+
+- Current operation.
+- Completed operations.
+- Pending operations.
+- Start and finish timestamps.
+- Execution duration.
+- Progress percentage when measurable.
+- Rows processed.
+- Values changed.
+- Warnings.
+- Errors.
+- Retry status.
+
+The interface must receive real backend events rather than simulated progress messages.
+
+Performance metrics
+
+Record and display relevant measurements such as:
+
+- File-reading time.
+- Profiling time.
+- Cleaning time.
+- Validation time.
+- Dashboard-generation time.
+- Query execution time.
+- LLM response time.
+- Total processing duration.
+- Rows processed per second where meaningful.
+- Failure and retry counts.
+
+Display memory or resource usage only when actual measurements are available.
+
+Do not fabricate accuracy percentages, speed improvements, or processing metrics.
+
+Failure handling
+
+Implement:
+
+- Structured error reporting.
+- Safe retries for appropriate transient failures.
+- Idempotent job processing where feasible.
+- Job cancellation where supported.
+- Recovery from interrupted processing.
+- User-friendly error explanations.
+- Detailed server-side diagnostics without exposing sensitive information.
+
+If validation fails, do not silently generate a dashboard from data that violates critical requirements. Explain the problem and provide a recovery path.
+
+---
+
+13. Database Design
+
+Create a persistent database schema with appropriate relationships, indexes, and access controls.
+
+Suggested entities:
+
+Users
+
+- ID.
+- Authentication provider reference.
+- Display name.
+- Email.
+- Profile picture.
+- Account status.
+- Created timestamp.
+
+UserPreferences
+
+- User ID.
+- Theme.
+- Accent color.
+- Font size.
+- Display density.
+- Accessibility preferences.
+- Locale and date format.
+
+Datasets
+
+- ID.
+- Owner ID.
+- Name.
+- Description.
+- Original filename.
+- File format.
+- Storage reference.
+- Row count.
+- Column count.
+- Current version.
+- Processing status.
+- Created and updated timestamps.
+
+DatasetVersions
+
+- ID.
+- Dataset ID.
+- Version number.
+- Source artifact reference.
+- Cleaned artifact reference.
+- Schema metadata.
+- Data-quality summary.
+- Created timestamp.
+
+CleaningActions
+
+- ID.
+- Dataset version ID.
+- Operation.
+- Target columns.
+- Parameters.
+- Affected row/value counts.
+- Reason.
+- Approval status.
+- Execution result.
+- Timestamp.
+
+ProcessingJobs
+
+- ID.
+- Dataset ID.
+- Owner ID.
+- Job type.
+- Current stage.
+- Status.
+- Progress where measurable.
+- Start and end timestamps.
+- Error details.
+
+ProcessingLogs
+
+- ID.
+- Job ID.
+- Severity.
+- Event type.
+- Message.
+- Structured metadata.
+- Timestamp.
+
+Dashboards
+
+- ID.
+- Dataset version ID.
+- Owner ID.
+- Name.
+- Chart configuration.
+- KPI definitions.
+- Filter configuration.
+- Created and updated timestamps.
+
+Conversations
+
+- ID.
+- Owner ID.
+- Dataset ID.
+- Title.
+- Created timestamp.
+
+ChatMessages
+
+- ID.
+- Conversation ID.
+- Role.
+- Message content.
+- Analysis reference.
+- Timestamp.
+
+AnalysisRuns
+
+- ID.
+- Conversation ID.
+- Dataset version ID.
+- Analysis specification.
+- Query or calculation metadata.
+- Result metadata.
+- Execution status.
+- Timestamp.
+
+VerificationRecords
+
+- ID.
+- Analysis run ID.
+- Evidence metadata.
+- Checks performed.
+- Verification status.
+- Limitations.
+- Timestamp.
+
+SavedReports
+
+- ID.
+- Owner ID.
+- Dataset ID.
+- Report metadata.
+- Storage reference.
+- Created timestamp.
+
+Add appropriate foreign keys, indexes, timestamps, and retention policies. Store large outputs as files or object-storage artifacts when suitable.
+
+All user-owned records must be protected by backend authorization and database-level policies where available.
+
+---
+
+14. Main Application Screens
+
+Implement all of the following.
+
+A. Landing page
+
+- AutoInsight logo and branding.
+- Clear explanation of the product.
+- Primary call to action.
+- Feature overview.
+- Simple workflow illustration.
+- Security and privacy information.
+- Login and sign-up links.
+
+B. Overview dashboard
+
+Display:
+
+- Total datasets.
+- Recent analyses.
+- Recently generated dashboards.
+- Recent processing activity.
+- Saved reports.
+- Failed jobs requiring attention.
+- New Analysis button.
+
+Metrics must come from the logged-in user's actual records.
+
+C. New Analysis
+
+- File upload.
+- Dataset name.
+- File preview.
+- Initial quality report.
+- Start processing button.
+- Processing status.
+
+D. Dataset workspace
+
+Provide tabs for:
+
+- Overview.
+- Data preview.
+- Data quality.
+- Cleaning history.
+- Dashboard.
+- AI Analyst.
+- Processing logs.
+
+E. Dashboard workspace
+
+Provide interactive KPI cards, charts, filters, tables, chart explanations, and report-export options.
+
+F. AI Analyst workspace
+
+Provide chat, suggested questions, analysis history, evidence panels, calculation details, and verification statuses.
+
+G. Processing history
+
+Show searchable and filterable jobs with statuses, durations, dates, and error details.
+
+H. Saved reports
+
+Allow users to reopen, download, rename, and delete their own saved reports.
+
+I. Profile and settings
+
+Implement the complete account, appearance, accessibility, privacy, and security settings described earlier.
+
+J. Help and documentation
+
+Explain how to upload data, understand quality reports, interpret charts, ask questions, and inspect evidence.
+
+---
+
+15. User Experience for Non-Technical People
+
+Use plain English throughout the product.
+
+Prefer:
+
+- “Missing values” over unexplained technical codes.
+- “Remove repeated rows” over unexplained deduplication terminology.
+- “Check the data” over schema validation jargon.
+- “Show how this answer was calculated” over technical verification terminology.
+
+Provide short explanations beside complex options.
+
+Use guided workflows with clear next steps.
+
+Show a visible distinction between:
+
+- Automatic actions.
+- Recommended actions.
+- Actions requiring approval.
+- Warnings.
+- Completed operations.
+- Failed operations.
+
+Provide confirmation before destructive actions.
+
+Do not overwhelm users with every technical detail at once. Show a simple summary first and let users expand technical details when required.
+
+---
+
+16. Privacy, Security, and Data Integrity
+
+Implement the following requirements:
+
+- Preserve original uploads.
+- Use unique dataset IDs.
+- Restrict access to each user's data.
+- Validate file contents, extensions, sizes, and resource consumption.
+- Prevent path traversal and unsafe file handling.
+- Protect against prompt injection inside uploaded documents and dataset cells.
+- Treat dataset content as untrusted input.
+- Never execute instructions found inside a dataset.
+- Restrict the LLM to approved analysis tools.
+- Prevent generated SQL from modifying or deleting data.
+- Parameterize database queries.
+- Enforce read-only analytical access.
+- Use environment-based secrets.
+- Avoid logging credentials, tokens, or unnecessary personal information.
+- Provide secure deletion and data-retention controls.
+- Make external LLM data-sharing behavior transparent.
+- Apply reasonable timeouts and resource limits.
+- Include dependency and security checks.
+
+The system must not claim regulatory compliance or absolute accuracy unless these have been independently established.
+
+---
+
+17. Testing Requirements
+
+Create automated tests for every major component.
+
+Unit tests
+
+- File parsing.
+- Data profiling.
+- Missing-value handling.
+- Duplicate detection.
+- Type conversion.
+- Validation rules.
+- Dashboard metric calculation.
+- Query validation.
+- Evidence generation.
+
+Integration tests
+
+- Upload through completed dashboard.
+- Failed cleaning and recovery.
+- Validation failures.
+- LLM provider errors.
+- Analysis execution and answer verification.
+- Persistent processing history.
+- User authorization.
+
+End-to-end tests
+
+- Sign up and log in.
+- Upload a sample dataset.
+- Review quality issues.
+- Run preprocessing.
+- View the generated dashboard.
+- Ask a numerical question.
+- Inspect the calculation evidence.
+- Log out and log back in.
+- Reopen the saved analysis.
+- Switch between light and dark themes.
+
+Accuracy tests
+
+Use datasets with known answers to test numerical questions.
+
+Verify that:
+
+- The result matches an independent calculation.
+- The correct filters are applied.
+- Aggregations use the correct columns.
+- The answer is linked to the correct dataset version.
+- Unsupported questions are rejected or qualified.
+- The LLM does not invent evidence.
+- Results remain reproducible.
+
+---
+
+18. Implementation and Delivery Instructions
+
+Build the application incrementally while ensuring that all six project phases are ultimately integrated.
+
+Start by examining the existing project files and development environment. Reuse working components where appropriate.
+
+Then:
+
+1. Establish the project architecture.
+2. Implement authentication and database migrations.
+3. Build the upload workflow and dataset preview.
+4. Implement profiling, cleaning, and validation.
+5. Implement dashboard generation.
+6. Integrate the LLM analyst and approved tools.
+7. Implement evidence verification.
+8. Add the workflow orchestrator and live logging.
+9. Complete settings, history, saved reports, and profile management.
+10. Add automated tests and deployment configuration.
+
+Create the necessary source files, database models, API endpoints, frontend components, migrations, environment-variable examples, and documentation.
+
+Provide:
+
+- A complete README.
+- Setup and installation commands.
+- Database initialization and migration instructions.
+- Sample datasets.
+- Sample questions and expected numerical results.
+- Testing instructions.
+- Local development instructions.
+- Deployment instructions.
+- An ".env.example" containing placeholders only.
+- A list of external API keys or services that must be configured.
+
+Do not hardcode fake API responses or present placeholder analytics as real results.
+
+If an API key, model endpoint, database, or third-party service is unavailable, implement the appropriate interface and explain the configuration required. Do not falsely claim that an unconfigured service is operational.
+
+Use real persistence, real calculations, actual processing events, and properly validated outputs.
+
+Ensure that the website runs locally and that its main workflow can be demonstrated end to end.
+
+19. Definition of Done
+
+The project is complete when an authenticated user can:
+
+1. Create an account and manage their profile.
+2. Upload a real dataset.
+3. Preview and inspect the data.
+4. Automatically clean the dataset with a traceable change history.
+5. Validate the cleaned dataset.
+6. View before-and-after quality metrics.
+7. Generate an interactive dashboard.
+8. Ask questions in natural language.
+9. Receive answers based on actual calculations.
+10. Inspect supporting evidence and verification status.
+11. View real processing logs and execution metrics.
+12. Save and reopen analyses and dashboards.
+13. Change appearance and accessibility settings.
+14. Log out and securely return later.
+15. Delete their own datasets and associated stored artifacts according to the configured retention policy.
+
+Final instruction: Prioritize a coherent, secure, reliable, and professional product over decorative complexity. Build AutoInsight as one integrated application with a central orchestrator, deterministic data-processing engines, selectively deployed AI agents, persistent storage, interactive visualizations, and reproducible answer verification. Ensure every major feature is connected to the real backend and database.

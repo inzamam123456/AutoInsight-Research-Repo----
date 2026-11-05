@@ -1,0 +1,65 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account profile details",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastLoginAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "AnalysisHistory": {
+      "title": "AnalysisHistory",
+      "description": "History of analysis sessions, prompt queries, and dataset insights",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "datasetId": { "type": "string", "maxLength": 128 },
+        "datasetName": { "type": "string", "maxLength": 256 },
+        "queryPrompt": { "type": "string", "maxLength": 1000 },
+        "insightsCount": { "type": "number" },
+        "qualityScore": { "type": "number" },
+        "status": { "type": "string", "enum": ["completed", "in_progress", "failed"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "summary": { "type": "string", "maxLength": 2000 }
+      },
+      "required": ["id", "userId", "datasetName", "createdAt"]
+    },
+    "SavedDashboard": {
+      "title": "SavedDashboard",
+      "description": "Saved dashboard configurations and cross-filter states",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "datasetId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 256 },
+        "chartCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile collection partitioned by user ID"
+    },
+    "/analysisHistory/{historyId}": {
+      "schema": "AnalysisHistory",
+      "description": "Analysis run history collection"
+    },
+    "/savedDashboards/{dashboardId}": {
+      "schema": "SavedDashboard",
+      "description": "Saved user dashboards"
+    }
+  }
+}
